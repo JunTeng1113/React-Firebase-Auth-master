@@ -17,19 +17,19 @@ export default app
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider) //登入方式：Popup：彈跳視窗，Redirect：新分頁
-    .then((result) => {
-        console.log(result);
-        const name = result.user.displayName;
-        const email = result.user.email;
-        const profilePic = result.user.photoURL;
+export const signInWithGoogle = async () => {
+  try {
+    const result = await auth.signInWithPopup(provider) //登入方式：Popup：彈跳視窗，Redirect：新分頁
 
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
-        localStorage.setItem("profilePic", profilePic);
-    })
-    .catch((error) => {
-            console.log(error); 
-    })
+    console.log(result);
+    const name = result.user.displayName;
+    const email = result.user.email;
+    const profilePic = result.user.photoURL;
+
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
+    localStorage.setItem("profilePic", profilePic);
+  } catch (error) {
+    console.log(error);
+  }
 }

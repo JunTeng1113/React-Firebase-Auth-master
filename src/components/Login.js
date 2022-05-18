@@ -30,6 +30,11 @@ export default function Login() {
     setLoading(false)
   }
 
+  async function loginWithGoogle() {
+    await signInWithGoogle()
+    history.push("/")
+  }
+
   return (
     <>
       <Card>
@@ -52,7 +57,7 @@ export default function Login() {
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">忘記密碼？</Link>
           </div>
-          <button className="w-100" onClick={''}>
+          <button className="w-100" onClick={loginWithGoogle}>
             Sign in with Google
           </button>
           <Link to="/login-with-phone-number">
