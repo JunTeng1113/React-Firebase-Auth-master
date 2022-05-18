@@ -52,7 +52,7 @@ export default function Login() {
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">忘記密碼？</Link>
           </div>
-          <button className="w-100" onClick={''}>
+          <button className="w-100" onClick={signInWithGoogle}>
             Sign in with Google
           </button>
           <Link to="/login-with-phone-number">
