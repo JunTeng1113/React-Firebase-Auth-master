@@ -43,6 +43,10 @@ export default function PhoneSignUp() {
                 .then((confirmationResult) => {
                     // SMS sent. Prompt user to type the code from the message, then sign the
                     // user in with confirmationResult.confirm(code).
+                    console.log(`===============`);
+                    console.log(`signInWithPhoneNumber: `);
+                    console.log(confirmationResult);
+                    console.log(`===============`);
                     window.confirmationResult = confirmationResult;
                     setResult(confirmationResult);
                     setFlag(true);

@@ -27,7 +27,18 @@ export default function Dashboard() {
         <Card.Body>
           <h2 className="text-center mb-4">個人資訊</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Email:</strong> {currentUser.email}
+          <div className="row">
+            <div className="col text-center">
+              <img src={currentUser.photoURL} className="border"/>
+            </div>
+          </div>
+          
+          <div className="row">
+            <span className="col col-5 text-right">Email:</span><span className="col col-7 text-left">{currentUser.email}</span>
+          </div>
+          <div className="row">
+            <span className="col col-5 text-right">PhoneNumber:</span><span className="col col-7 text-left">{currentUser.phoneNumber}</span>
+          </div>
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             更新資訊
           </Link>

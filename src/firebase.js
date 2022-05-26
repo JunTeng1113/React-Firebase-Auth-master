@@ -14,6 +14,7 @@ const app = firebase.initializeApp({
 export const auth = app.auth()
 export default app
 
+// 未使用
 export const generateRecaptcha1 = (auth1) => {
     console.log(auth1);
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
@@ -29,9 +30,14 @@ export const generateRecaptcha1 = (auth1) => {
     }, auth1);
 }
 
+// 未使用
 export const signInWithPhoneNumber = async (number, appVerifier) => {
     firebase.auth().signInWithPhoneNumber(auth, number, appVerifier)
         .then((confirmationResult) => {
+            console.log("====================");
+            console.log("signInWithPhoneNumber");
+            console.log(confirmationResult)
+            console.log("====================");
             // SMS sent. Prompt user to type the code from the message, then sign the
             // user in with confirmationResult.confirm(code).
             return confirmationResult;
@@ -46,40 +52,85 @@ export const signInWithPhoneNumber = async (number, appVerifier) => {
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-export const signInWithGoogle = async () => {
-    try {
-        const result = await auth.signInWithPopup(googleProvider) //登入方式：Popup：彈跳視窗，Redirect：新分頁
+// export const signInWithGoogle = async () => {
+//     try {
+//         const result = await auth.signInWithPopup(googleProvider) //登入方式：Popup：彈跳視窗，Redirect：新分頁
+//         console.log(`===============`);
+//         console.log(`Google: `);
+//         console.log(result);
+//         console.log(`===============`);
+//         const name = result.user.displayName;
+//         const email = result.user.email;
+//         const profilePic = result.user.photoURL;
 
+//         localStorage.setItem("name", name);
+//         localStorage.setItem("email", email);
+//         localStorage.setItem("profilePic", profilePic);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+export const signInWithGoogle = async () => {
+    await auth.signInWithPopup(googleProvider)
+    .then((result) => {
         console.log(result);
-        const name = result.user.displayName;
-        const email = result.user.email;
-        const profilePic = result.user.photoURL;
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = result.credential;
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        const name = user.displayName;
+        const email = user.email;
+        const profilePic = user.photoURL;
 
         localStorage.setItem("name", name);
         localStorage.setItem("email", email);
         localStorage.setItem("profilePic", profilePic);
-    } catch (error) {
-        console.log(error);
-    }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+const firebaseConfig = {
+    apiKey: "AIzaSyB9LhMl0FC9Og6ExEk7GBfLZQK1jYKYvhY",
+    authDomain: "toysrbooks.firebaseapp.com",
+    projectId: "toysrbooks",
+    storageBucket: "toysrbooks.appspot.com",
+    messagingSenderId: "683282258435",
+    appId: "1:683282258435:web:c7355d0ccd32e2d2ef4c36",
+    measurementId: "G-3PTZ2M8WDX"
+};
+const appleApp = firebase.initializeApp(firebaseConfig, "appleApp")
+
+const appleAuth = appleApp.auth()
+
+const appleProvider = new firebase.auth.OAuthProvider('apple.com');
+
+export const signInWithApple = async () => {
+    await appleAuth.signInWithPopup(appleProvider)
+    .then((result) => {
+        console.log("=========================")
+        console.log("signInWithApple");
+        console.log(result);
+        console.log("=========================")
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = result.credential;
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        const name = user.displayName;
+        const email = user.email;
+        const profilePic = user.photoURL;
+
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("profilePic", profilePic);
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 }
 
-
-
-// const appleProvider = new firebase.auth.OAuthProvider('apple.com');
-
-// export const signInWithApple = async () => {
-//   try {
-//     const result = await auth.signInWithPopup(appleProvider) //登入方式：Popup：彈跳視窗，Redirect：新分頁
-
-//     console.log(result);
-//     const name = result.user.displayName;
-//     const email = result.user.email;
-//     const profilePic = result.user.photoURL;
-
-//     localStorage.setItem("name", name);
-//     localStorage.setItem("email", email);
-//     localStorage.setItem("profilePic", profilePic);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }

@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert, Row } from "react-bootstrap";
 // import * as Icon from 'react-bootstrap-icons';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate, Navigate } from "react-router-dom";
-import { signInWithGoogle } from "../firebase";
+import { signInWithGoogle, signInWithApple } from "../firebase";
 import PhoneSignUp from "./LoginWithPhoneNumber";
 
 export default function Login() {
@@ -36,6 +36,11 @@ export default function Login() {
         navigate("/")
     }
     
+    async function loginWithApple() {
+        await signInWithApple()
+        console.log(123)
+        navigate("/")
+    }
 
     return (
         <>
@@ -63,6 +68,7 @@ export default function Login() {
                             {/* <Link to="/login-with-phone-number"></Link> */}
                             <Link to="/login-with-phone-number" className="text-decoration-none text-reset">手機號碼</Link>
                         </Button>
+                        <Button as={0} variant="primary" className="col ml-4" onClick={loginWithApple}>Apple</Button>
                     </Row>
                     {/* <Link to="/login-with-phone-number">
                             Sign in with PhoneNumber
