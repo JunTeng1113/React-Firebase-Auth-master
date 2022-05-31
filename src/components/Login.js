@@ -38,7 +38,6 @@ export default function Login() {
     
     async function loginWithApple() {
         await signInWithApple()
-        console.log(123)
         navigate("/")
     }
 
@@ -54,7 +53,7 @@ export default function Login() {
                             <Form.Control type="email" ref={emailRef} required />
                         </Form.Group>
                         <Form.Group id="password">
-                            <Form.Label>密碼</Form.Label><span className="ml-2"><Link to="/forgot-password">忘記密碼？</Link></span>
+                            <Form.Label>密碼</Form.Label><span className="ml-2"><Link to="/forgot-password">忘記密碼？</Link></span> {/* 跳轉至忘記密碼畫面 */}
                             <Form.Control type="password" ref={passwordRef} required />
                         </Form.Group>
                         <Button disabled={loading} className="w-100" type="submit">
@@ -65,14 +64,10 @@ export default function Login() {
                     <Row className="mx-0 my-2">
                         <Button as={0} variant="primary" className="col" onClick={loginWithGoogle}>Google</Button>
                         <Button as={0} variant="primary" className="col ml-4">
-                            {/* <Link to="/login-with-phone-number"></Link> */}
-                            <Link to="/login-with-phone-number" className="text-decoration-none text-reset">手機號碼</Link>
+                            <Link to="/login-with-phone-number" className="text-decoration-none text-reset">手機號碼</Link> {/* 跳轉至手機驗證畫面 */}
                         </Button>
                         <Button as={0} variant="primary" className="col ml-4" onClick={loginWithApple}>Apple</Button>
                     </Row>
-                    {/* <Link to="/login-with-phone-number">
-                            Sign in with PhoneNumber
-                    </Link> */}
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">

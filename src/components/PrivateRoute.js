@@ -8,6 +8,5 @@ export default function PrivateRoute() {
   console.log(`PrivateRoute:`)
   console.log(auth)
   console.log(currentUser)
-  console.log(currentUser == true)
   return currentUser ? <Outlet /> : <Navigate to="/login" />;
 }
