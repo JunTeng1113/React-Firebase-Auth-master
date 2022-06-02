@@ -1,68 +1,124 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<style>
+html, body, .ui-content {
+    background-color: #333;
+    color: #ddd;
+}
 
-## Available Scripts
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    color: #ddd;
+}
 
-In the project directory, you can run:
+.markdown-body h1,
+.markdown-body h2 {
+    border-bottom-color: #ffffff69;
+}
 
-### `npm start`
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+    color: #fff;
+}
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+.markdown-body img {
+    background-color: transparent;
+}
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+.ui-toc-dropdown .nav>.active:focus>a, .ui-toc-dropdown .nav>.active:hover>a, .ui-toc-dropdown .nav>.active>a {
+    color: white;
+    border-left: 2px solid white;
+}
 
-### `npm test`
+.expand-toggle:hover, 
+.expand-toggle:focus, 
+.back-to-top:hover, 
+.back-to-top:focus, 
+.go-to-bottom:hover, 
+.go-to-bottom:focus {
+    color: white;
+}
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+.ui-toc-dropdown {
+    background-color: #333;
+}
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+.ui-toc-label.btn {
+    background-color: #191919;
+    color: white;
+}
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+.ui-toc-dropdown .nav>li>a:focus, 
+.ui-toc-dropdown .nav>li>a:hover {
+    color: white;
+    border-left: 1px solid white;
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+.markdown-body blockquote {
+    color: #bcbcbc;
+}
 
-### `npm run eject`
+.markdown-body table tr {
+    background-color: #5f5f5f;
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+.markdown-body table tr:nth-child(2n) {
+    background-color: #4f4f4f;
+}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+.markdown-body code,
+.markdown-body tt {
+    color: #eee;
+    background-color: rgba(230, 230, 230, 0.36);
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+a,
+.open-files-container li.selected a {
+    color: #5EB7E0;
+}
+</style>
+###### tags: `Firebase` `駿騰` `tag` 
+# Firebase 實作3
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 將Apple登入與其它登入方式整合
+:::danger
+Q：Apple ID 登入無法順利切換畫面
+A：因為使用了兩個API KEY，使用同一個就可以了
+:::
 
-## Learn More
+## 需要知道的知識
+:::success
+- React
+- React hooks
+- [React Router v6](https://ithelp.ithome.com.tw/articles/10282773)
+:::
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 有使用到的CSS框架
+:::success
+- react-bootstrap
+- MUI (極少數，較推薦使用)
+:::
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 相關資料
+:::warning
+- 第三方登入套件－[FirebaseUI](https://github.com/firebase/firebaseui-web-react)
+- CSS框架－[React Bootstrap](https://react-bootstrap.github.io/)
+- CSS框架－[MUI](https://mui.com/zh/)
+:::
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## 系統設計
+:::warning
+ - firebase： 與 firebase 做串聯
+ - env.local： 存放API KEY
+ - App： 控制畫面跳轉
+ - AuthContext： 用戶驗證
+:::
+![](https://i.imgur.com/jD8Lh29.png)
