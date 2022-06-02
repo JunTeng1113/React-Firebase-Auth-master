@@ -15,7 +15,7 @@ export default function UpdateProfile() {
   function handleSubmit(e) {
     e.preventDefault()
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
+      return setError("密碼與確認密碼不相同")
     }
 
     const promises = []
@@ -45,7 +45,7 @@ export default function UpdateProfile() {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Update Profile</h2>
+          <h2 className="text-center mb-4">更新資訊</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">

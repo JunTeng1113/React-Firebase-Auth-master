@@ -1,32 +1,19 @@
+import React from 'react';
 import firebase from "firebase/compat/app"
 import "firebase/compat/auth"
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB9LhMl0FC9Og6ExEk7GBfLZQK1jYKYvhY",
-    authDomain: "toysrbooks.firebaseapp.com",
-    projectId: "toysrbooks",
-    storageBucket: "toysrbooks.appspot.com",
-    messagingSenderId: "683282258435",
-    appId: "1:683282258435:web:c7355d0ccd32e2d2ef4c36",
-    measurementId: "G-3PTZ2M8WDX"
+    apiKey: process.env.REACT_APP_FIREBASE_APPLE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_APPLE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_APPLE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_APPLE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_APPLE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_APPLE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APPLE_APP_ID
 };
-// const appleApp = firebase.initializeApp(firebaseConfig, "appleApp")
 
-// const app = firebase.initializeApp({
-//     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//     databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-//     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-//     appId: process.env.REACT_APP_FIREBASE_APP_ID
-// })
-const app = firebase.initializeApp(firebaseConfig)
-
-
-
-// const appleAuth = appleApp.auth()
-const appleAuth = app.auth()
+const app = firebase.initializeApp(firebaseConfig);
 
 export const auth = app.auth()
 export default app
@@ -66,27 +53,10 @@ export const signInWithPhoneNumber = async (number, appVerifier) => {
         });
 }
 
-
+/*==================================================*/
+/*  SignIn With Google.                             */
+/*==================================================*/
 const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-// export const signInWithGoogle = async () => {
-//     try {
-//         const result = await auth.signInWithPopup(googleProvider) //登入方式：Popup：彈跳視窗，Redirect：新分頁
-//         console.log(`===============`);
-//         console.log(`Google: `);
-//         console.log(result);
-//         console.log(`===============`);
-//         const name = result.user.displayName;
-//         const email = result.user.email;
-//         const profilePic = result.user.photoURL;
-
-//         localStorage.setItem("name", name);
-//         localStorage.setItem("email", email);
-//         localStorage.setItem("profilePic", profilePic);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 
 export const signInWithGoogle = async () => {
     await auth.signInWithPopup(googleProvider)
@@ -111,11 +81,13 @@ export const signInWithGoogle = async () => {
     })
 }
 
-
+/*==================================================*/
+/*  SignIn With Apple.                              */
+/*==================================================*/
 const appleProvider = new firebase.auth.OAuthProvider('apple.com');
 
 export const signInWithApple = async () => {
-    await appleAuth.signInWithPopup(appleProvider)
+    await auth.signInWithPopup(appleProvider)
     .then((result) => {
         console.log("=========================")
         console.log("signInWithApple");
@@ -140,3 +112,26 @@ export const signInWithApple = async () => {
     })
 }
 
+/*==================================================*/
+/*  Configure FirebaseUI.                           */
+/*==================================================*/
+
+const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'popup',
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: '/',
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        'apple.com'
+    ],
+};
+
+export function SocialLogin() {
+    return (
+        <StyledFirebaseAuth className="col" uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+    )
+}

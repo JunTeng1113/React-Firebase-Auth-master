@@ -3,10 +3,6 @@ import { Route, Navigate, Outlet } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
 
 export default function PrivateRoute() {
-  const auth = useAuth();
-  const { currentUser } = useAuth()
-  console.log(`PrivateRoute:`)
-  console.log(auth)
-  console.log(currentUser)
+  const { currentUser } = useAuth() // 有登入就會有資料，沒有資料就跳轉到登入畫面
   return currentUser ? <Outlet /> : <Navigate to="/login" />;
 }

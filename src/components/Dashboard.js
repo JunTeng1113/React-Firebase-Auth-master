@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 
 export default function Dashboard() {
-  console.log("Dashboard is triggered");
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
   const navigate = useNavigate()
