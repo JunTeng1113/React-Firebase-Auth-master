@@ -57,7 +57,7 @@ export default function Signup() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        已經有帳號？ <Link to="/login">登入</Link>
+        已經有帳號？ <Link to="..">登入</Link>
       </div>
     </>
   )

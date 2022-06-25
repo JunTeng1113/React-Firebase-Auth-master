@@ -43,12 +43,12 @@ export default function ForgotPassword() {
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
-            <Link to="/login">登入</Link>
+            <Link to="..">登入</Link>
           </div>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        建立新帳號？ <Link to="/signup">註冊</Link>
+        建立新帳號？ <Link to="../signup">註冊</Link>
       </div>
     </>
   )

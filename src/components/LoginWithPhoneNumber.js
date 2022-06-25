@@ -93,7 +93,7 @@ export default function PhoneSignUp() {
                         <div id="recaptcha-container" className="col my-2"></div>
                     </Form.Group>
                     <div className="text-center mb-4">
-                        <Link to="/login">
+                        <Link to="../">
                             <Button variant="secondary">取消</Button>
                         </Link>
                         &nbsp;

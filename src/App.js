@@ -9,7 +9,8 @@ import PrivateRoute from "./components/PrivateRoute"
 import ForgotPassword from "./components/ForgotPassword"
 import UpdateProfile from "./components/UpdateProfile"
 import PhoneSignUp from "./components/LoginWithPhoneNumber" 
-
+import LoginWithWeb from './components/loginWithWeb';
+import LoginWithFirebaseUI from './components/loginWithFirebaseUI';
 
 function App() {
   return (
@@ -21,17 +22,28 @@ function App() {
         <Router>
           <AuthProvider>
             <Routes>
-              <Route excat path='/' element={<PrivateRoute />}>
-                <Route index element={<Dashboard />} /> 
+              <Route path='/'>
+                <Route element={<PrivateRoute />}>
+                  <Route index element={<Dashboard />} /> 
+                </Route>
+                <Route path='update-profile' element={<PrivateRoute />}>
+                  <Route index element={<UpdateProfile />} />
+                </Route>
+                
+                <Route path="login">
+                  <Route index element={<Login />} />
+                  <Route path="firebase" >
+                    <Route index element={<LoginWithWeb />} />
+                    <Route path="forgot-password" element={<ForgotPassword />} />
+                    <Route path="login-with-phone-number" element={<PhoneSignUp />} />
+                    <Route path="signup" element={<Signup />} />
+                  </Route>
+
+                  <Route path="firebaseUI" element={<LoginWithFirebaseUI />}>
+                  </Route>
+                </Route>
+                <Route path="*" element={<p>There's nothing here: 404!</p>} />
               </Route>
-              <Route path='/update-profile' element={<PrivateRoute />}>
-                <Route index element={<UpdateProfile />} />
-              </Route>
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/login-with-phone-number" element={<PhoneSignUp />} />
-              <Route path="*" element={<p>There's nothing here: 404!</p>} />
             </Routes>
           </AuthProvider>
         </Router>

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import * as firebaseui from 'firebaseui';
 import firebase from "firebase/compat/app"
-import "firebase/compat/auth"
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import "firebase/compat/auth";
+import 'firebaseui/dist/firebaseui.css';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_APPLE_API_KEY,
@@ -129,9 +130,19 @@ const uiConfig = {
         'apple.com'
     ],
 };
-
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
 export function SocialLogin() {
+    useEffect(() => {
+        const oldDelete = ui.delete
+        ui.delete = () => {
+        }
+        return () => {
+            ui.delete = oldDelete
+        }
+    })
+    ui.start('#firebaseui-auth-container', uiConfig);
     return (
-        <StyledFirebaseAuth className="col" uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        <div id='firebaseui-auth-container'></div>
     )
 }
+
